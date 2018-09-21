@@ -4,6 +4,8 @@ from ntm_keras.ntm import NeuralTuringMachine as NTM
 from ntm_keras.ntm import controller_input_output_shape as controller_shape
 from keras.layers.recurrent import LSTM
 
+num_epochs = 10
+
 input_dim = 88 #or so, the number of piano keys or a bit less)
 output_dim = 88
 batch_size = 32
@@ -52,3 +54,5 @@ model.add(ntm)
 
 model.compile(loss='binary_crossentropy', optimizer=sgd,
                metrics = ['binary_accuracy'], sample_weight_mode="temporal")
+
+#model.fit_generator(sample_generator, steps_per_epoch=10, epochs=num_epochs)#, callbacks=callbacks)
