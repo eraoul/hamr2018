@@ -51,6 +51,18 @@ def convert_parts(file):
         # except AttributeError:
         #     track_name = 'None'
         track_name = file + 'part_%d' % i
+
+    # num_parts = len(piece.parts)
+    # counter=0
+    # for part in piece.parts:
+    #     counter += 1
+    #     part_tuples=[]
+    #     try:
+    #         track_name = part[0].bestName()
+    #     except AttributeError:
+    #         track_name = 'part'+str(counter)
+
+
         #part_tuples.append(track_name)
 
 
