@@ -27,7 +27,7 @@ def get_notes(file):
     return '' .join(chain.from_iterable(notes))
 
 def convert_midi_to_txt(directory):
-    for file in glob.glob("*.mid"):
+    for file in glob.glob(directory+"/*.mid"):
         string = get_notes(file)
         with open(file+".txt", "w") as f:
             f.write(string)
