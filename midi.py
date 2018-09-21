@@ -29,12 +29,16 @@ def get_notes(file):
 
 def get_parts(file):
     piece = converter.parse(file)
+    num_parts = len(piece.parts)
+    counter=0
     for part in piece.parts:
+        counter += 1
         part_tuples=[]
         try:
             track_name = part[0].bestName()
         except AttributeError:
-            track_name = 'None'
+            track_name = 'part'+str(counter)
+
         #part_tuples.append(track_name)
         for event in part:
             for y in event.contextSites():
