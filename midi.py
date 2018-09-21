@@ -1,7 +1,7 @@
 import glob, os, numpy
 from music21 import converter, instrument, note, chord
 from itertools import chain
-import os
+
 
 
 def get_notes(file):
