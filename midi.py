@@ -45,10 +45,10 @@ def get_parts(file):
                 if y[0] is part:
                     offset=y[1]
             if getattr(event,'isNote',None) and event.isNote:
-                string = " "+str(event.pitch.midi)+" "+str(event.quarterLength)
+                string = " "+str(event.pitch.name)+str(event.pitch.octave)+" "+str(event.quarterLength)
                 part_tuples.append(string)
             if getattr(event,'isRest',None) and event.isRest:
-                string = " "+'Rest' + " "+ str(event.quarterLength)
+                string = " "+'R' + " "+ str(event.quarterLength)
                 part_tuples.append(string)
         part_tuples = '' .join(chain.from_iterable(part_tuples))
         with open(track_name+".txt", "w") as f:
