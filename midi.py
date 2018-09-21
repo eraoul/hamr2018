@@ -1,7 +1,7 @@
 import glob, os, numpy
 from music21 import converter, instrument, note, chord
 from itertools import chain
-import os
+
 
 
 PATH = 'Bach-Two_Part_Inventions_MIDI_Transposed'
