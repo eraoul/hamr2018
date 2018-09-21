@@ -4,6 +4,9 @@ from itertools import chain
 import os
 
 
+PATH = 'Bach-Two_Part_Inventions_MIDI_Transposed'
+
+
 def get_notes(file):
     '''
     get a string of all the notes/rest and their durations for a given file
@@ -59,6 +62,13 @@ def convert_midi_to_txt(directory):
             f.write(string)
             f.close()
 
+def get_piece_chunks(filename):
+    print(file)
 
-if not os.path.exists(directory+"txt"):
-    os.makedirs("txt")
+#if not os.path.exists(directory+"txt"):
+#    os.makedirs("txt")
+
+
+if __name__ == '__main__':
+    for file in glob.glob(os.path.join(PATH, '*.mid')):
+        get_piece_chunks(file)
