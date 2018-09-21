@@ -1,6 +1,7 @@
 import glob, os, numpy
 from music21 import converter, instrument, note, chord
 from itertools import chain
+import os
 
 
 def get_notes(file):
@@ -26,9 +27,38 @@ def get_notes(file):
             notes.append('.'.join(str(n) for n in element.normalOrder))
     return '' .join(chain.from_iterable(notes))
 
+def get_parts(file):
+    piece = converter.parse(file)
+    for part in piece.parts:
+        part_tuples=[]
+        try:
+            track_name = part[0].bestName()
+        except AttributeError:
+            track_name = 'None'
+        #part_tuples.append(track_name)
+        for event in part:
+            for y in event.contextSites():
+                if y[0] is part:
+                    offset=y[1]
+            if getattr(event,'isNote',None) and event.isNote:
+                string = " "+str(event.pitch.midi)+" "+str(event.quarterLength)
+                part_tuples.append(string)
+            if getattr(event,'isRest',None) and event.isRest:
+                string = " "+'Rest' + " "+ str(event.quarterLength)
+                part_tuples.append(string)
+        part_tuples = '' .join(chain.from_iterable(part_tuples))
+        with open(track_name+".txt", "w") as f:
+            f.write(str(part_tuples))
+            f.close()
+
+
 def convert_midi_to_txt(directory):
     for file in glob.glob(directory+"/*.mid"):
         string = get_notes(file)
         with open(file+".txt", "w") as f:
             f.write(string)
             f.close()
+
+
+if not os.path.exists(directory+"txt"):
+    os.makedirs("txt")
