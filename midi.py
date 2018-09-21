@@ -5,6 +5,7 @@ from itertools import chain
 
 
 PATH = 'Bach-Two_Part_Inventions_MIDI_Transposed'
+OUTPUT_PATH = 'Bach-Two_Part_Inventions_MIDI_Transposed/txt'
 CHUNK_SIZE = 4  # MEASURES
 
 def get_notes(file):
@@ -46,41 +47,23 @@ def convert_parts(file):
 
     for i, part in enumerate(piece.parts):
         part_tuples=[]
-        # try:
-        #     track_name = part[0].bestName()
-        # except AttributeError:
-        #     track_name = 'None'
-        track_name = file + 'part_%d' % i
 
-    # num_parts = len(piece.parts)
-    # counter=0
-    # for part in piece.parts:
-    #     counter += 1
-    #     part_tuples=[]
-    #     try:
-    #         track_name = part[0].bestName()
-    #     except AttributeError:
-    #         track_name = 'part'+str(counter)
-
-
-        #part_tuples.append(track_name)
-
-
+        
         # Make measures and go through measures
         measures = part.makeMeasures()
         for start, end in chunks:
             part_tuples = []
-            track_name = file + 'part_%d' % i
+            track_name = os.path.join(OUTPUT_PATH, os.path.basename(file) + '_part_%d' % i)
             for measure in measures[start: end]:
                 for event in measure:
                     if getattr(event,'isNote',None) and event.isNote:
-                        string = " " + str(event.pitch.midi) + " " + str(event.quarterLength)
+                        string = " " + str(event.pitch.midi) + " " + str(event.quarterLength) # string = " " + str(event.pitch.name) + str(event.pitch.octave) + " " + str(event.quarterLength)
                         part_tuples.append(string)
                     if getattr(event,'isRest',None) and event.isRest:
-                        string = " " + 'R' + " " + str(event.quarterLength)
+                        string = " " + '0' + " " + str(event.quarterLength)  # Replaced "Rest" with "0"
                         part_tuples.append(string)
             track_name += '_%d-%d' % (start, end)
-            part_tuples = '' .join(chain.from_iterable(part_tuples))
+            part_tuples = ''.join(chain.from_iterable(part_tuples))
             with open(track_name + ".txt", "w") as f:
                 f.write(str(part_tuples))
                 f.close()
