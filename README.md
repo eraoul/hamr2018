@@ -39,7 +39,10 @@ They are relatively simple and could provide an excellent training set for a sma
 In order to represent tonal qualities and hierarchical music structures we firstly transposed all the songs to the key of C major or A minor, accordingly.
 
 ## The results
-TODO
+This is an example of our results:
+![picture](./result.png)
+
+That's great! Our model jumped 300 years of music history and rediscovered minimalism!
 
 ## Future Work
 Since the chunking was made arbitrarily every four measures, it's likely that the learnt representations and the generated responses are of limited musical value. It would be advisable to use a domain-expert to manually segment the two-part variations into more semantically valid chunks.

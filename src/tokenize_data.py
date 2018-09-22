@@ -4,9 +4,9 @@ import os
 
 from keras.utils import to_categorical
 
-os.environ["KERAS_BACKEND"] = "tensorflow"
+from config import PADDING_TOKEN
 
-PADDING_TOKEN = 126  # start token is 127; avoid conflict.
+os.environ["KERAS_BACKEND"] = "tensorflow"
 
 
 def pad_left(ex, pad_to_size):
@@ -16,12 +16,14 @@ def pad_left(ex, pad_to_size):
     padded.extend(ex)
     return padded
 
+
 def pad_right(ex, pad_to_size):
     """ex is an example list of ints. Pad left to the given length."""
     pad_len = pad_to_size - len(ex)
     padding = [PADDING_TOKEN] * pad_len
     ex.extend(padding)
     return ex
+
 
 def add_example_to_list(filename, example_list, pad_to_size, pad_on_right=False):
     example = []
