@@ -10,8 +10,7 @@ import numpy as np
 
 from data_processing import read_input_file, preprocess_data
 
-
-NUM_LSTM_NODES = 1024             # Num of intermediate LSTM nodes
+NUM_LSTM_NODES = 1024  # Num of intermediate LSTM nodes
 
 SIG_FIGS = 5
 SIG_DIGITS = 4
@@ -40,9 +39,9 @@ NUM_DURATION_CLASSES = MAX_EVENT_SUBBEATS + 1  # + 1 for "0" case
 # Start of range is inclusive, end of range is exclusive.
 COMMAND_VEC_RANGE = (0, NUM_COMMAND_CLASSES)
 MIDI_VEC_RANGE = (
-COMMAND_VEC_RANGE[1], COMMAND_VEC_RANGE[1] + NUM_MIDI_CLASSES)
+    COMMAND_VEC_RANGE[1], COMMAND_VEC_RANGE[1] + NUM_MIDI_CLASSES)
 DURATION_VEC_RANGE = (
-MIDI_VEC_RANGE[1], MIDI_VEC_RANGE[1] + NUM_DURATION_CLASSES)
+    MIDI_VEC_RANGE[1], MIDI_VEC_RANGE[1] + NUM_DURATION_CLASSES)
 VEC_LENGTH = DURATION_VEC_RANGE[1]
 
 # Y values have an extra "start" command option. X values don't.
@@ -51,11 +50,10 @@ if ADD_START:
     VEC_LENGTH_X -= 1
 
 INPUT_NOTES = 30
-OUTPUT_NOTES = 10   # Used for training
+OUTPUT_NOTES = 10  # Used for training
 
 MAX_OUTPUT_STEPS = 100
 OUTPUT_BEATS = 10  # Used for generation
-
 
 INPUT_TIMESTEPS = 4 * INPUT_NOTES
 OUTPUT_TIMESTEPS = 4 * OUTPUT_NOTES
@@ -66,7 +64,6 @@ if ADD_START:
 
 pc_to_degree_flat_key = [0, 1, 1, 2, 2, 3, 4, 4, 5, 5, 6, 6]
 pc_to_degree_sharp_key = [0, 0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6]
-
 
 
 # Load from disk; reconstruct inference model
@@ -145,7 +142,7 @@ def load_model():
         stop_condition = False
         output_sequence = []
         step = 0
-        #while step < OUTPUT_TIMESTEPS:
+        # while step < OUTPUT_TIMESTEPS:
         total_time = 0
         while step < MAX_OUTPUT_STEPS and total_time < OUTPUT_BEATS * QUANTIZATION:
             z = decoder_model.predict(
@@ -179,8 +176,7 @@ def load_model():
 
         return output_sequence
 
-    return partial(seq2seq_from_models, encoder_model1, encoder_model2,
-                   decoder_model)
+    return partial(seq2seq_from_models, encoder_model1, encoder_model2, decoder_model)
 
 
 # Convert Output to CSV and MIDI
@@ -323,6 +319,3 @@ if __name__ == '__main__':
             print('Exception: %s' % str(e))
             print('Continuing...\n')
     print('Done! Wrote %d files to %s' % (num_success, output_path))
-
-
-

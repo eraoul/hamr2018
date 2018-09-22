@@ -4,14 +4,12 @@
 import os
 
 import numpy as np
-from IPython.display import SVG
 from keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from keras.layers import Input, LSTM, Dense
 from keras.models import Model
 from keras.optimizers import Adam
-from keras.utils.vis_utils import model_to_dot
 
-from src.tokenize_data import tokenize_data
+from tokenize_data import tokenize_data
 
 import logging
 logging.basicConfig(level=logging.INFO)
