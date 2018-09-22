@@ -15,7 +15,6 @@ CHUNK_SIZE = 4  # MEASURES
 PADDING_TOKEN = 126
 
 
-
 def read_pickle(filename):
     with open(filename, 'rb') as f:
         return pickle.load(f)
@@ -27,7 +26,7 @@ def binary_to_notelist(data):
     assert len(data.shape) == 2
 
     # Read the duration symbol table
-    symbol_to_index = read_pickle(os.path.join(TXT_TOKENIZED, 'symbol_to_index.pkl'))    
+    symbol_to_index = read_pickle(os.path.join(TXT_TOKENIZED, 'symbol_to_index.pkl'))
     index_to_symbol = {idx: symbol for idx, symbol in enumerate(symbol_to_index)}
 
     notes = []
@@ -66,7 +65,7 @@ def dur_string_to_quarterlength(dur_string):
 
 
 def notelist_to_midi(notes, filename='test.mid'):
-    s = stream.Stream() 
+    s = stream.Stream()
 
     for n in notes:
         midinote = note.Note(midinote_to_pc_octave(n.midi))
@@ -85,15 +84,12 @@ def convert_array_to_midi(data, output_filename):
     notelist_to_midi(notes, output_filename)
 
 
-
 if __name__ == '__main__':
-    notes = binary_to_notelist(np.array([[0,1,0,0,0,0,0,0], [0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 
-        0, .9, 0], [0, 0, 0.1, 0.2, 0, 0, 0, 0]]))
+    notes = binary_to_notelist(np.array([[0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0,
+                                                                                              0, .9, 0],
+                                         [0, 0, 0.1, 0.2, 0, 0, 0, 0]]))
     print(notes)
 
     notelist_to_midi(notes)
 
     print('DONE!')
-
-
-
