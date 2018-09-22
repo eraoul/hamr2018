@@ -40,3 +40,7 @@ In order to represent tonal qualities and hierarchical music structures we first
 
 ## The results
 TODO
+
+## Future Work
+Since the chunking was made arbitrarily every four measures, it's likely that the learnt representations and the generated repsonses are of limited musical value. It would be advisable to use a domain-expert to manually segment the two-part variations into more semanticlly valid chunks.
+We started doing this for the first two inventions (found in Bach-Two_Part_Inventions_MIDI_Phrases). These could be used as a validation set or they could be completed to include the whole corpus in order to train the model accordingly.
