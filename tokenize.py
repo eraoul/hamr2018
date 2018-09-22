@@ -36,5 +36,5 @@ input_texts = np.array([int(e) for e in input_texts])
 target_texts = np.array([int(e) for e in target_texts])
 
 
-input_cat = to_categorical(x, num_classes=128)
-target_cat = to_categorical(y, num_classes=128)
+input_cat = to_categorical(input_texts, num_classes=128)
+target_cat = to_categorical(target_texts, num_classes=128)
