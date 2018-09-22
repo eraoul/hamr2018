@@ -26,11 +26,11 @@ Turing Machines, where a controller decides what to read from the memory and whe
 with the same architecture as the sequence-to-sequence memoryless model as a controller for our NTM. 
 
 ## The training data
-We take Bach's two-part inventions as a database for several reasons: 
-first of all, it makes a homogeneous body of work who offers some variance while keeping well-defined internal laws;
-then, the two-part inventions are very well-known and regarded as a textbook example of contrapuntal music;
-they are very simple and could provide an excellent training set for a small model;
-and finally, they were already available to us in MIDI format.
+We take Bach's two-part inventions as a database for the following reasons: 
+They are a homogeneous body of work which offers some variance while keeping well-defined internal laws;
+Furthermore, the two-part inventions are very well-known and regarded as a textbook example of contrapuntal music;
+They are relatively simple and could provide an excellent training set for a small model;
+
 
 Here is an excerpt of a couple of measures from the first invention.
 
