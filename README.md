@@ -1,4 +1,4 @@
-# Modelling Two-Part Polyphony @ hamr2018
+# Modeling Two-Part Polyphony @ hamr2018
 
 Team: Eric Nichols, Anna Aljanaki, Stefano Kalonaris, Gianluca Micchi, Sebastian Stober
 
