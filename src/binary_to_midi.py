@@ -12,6 +12,8 @@ from music21.midi.translate import streamToMidiFile
 
 TXT_TOKENIZED = '../Bach-Two_Part_Inventions_MIDI_Transposed/txt_tokenized'
 CHUNK_SIZE = 4  # MEASURES
+PADDING_TOKEN = 126
+
 
 
 def read_pickle(filename):
@@ -35,10 +37,13 @@ def binary_to_notelist(data):
     dur_string = None
     for timestep in range(len(data)):
         value = np.argmax(data[timestep])
+        if value == PADDING_TOKEN:
+            continue
         if timestep % 2 == 0:
             # midi # case
             midi = value
         else:
+            # duration case
             dur_string = index_to_symbol[value]
             notes.append(Note(midi, dur_string))
 
@@ -50,7 +55,7 @@ PC_TO_NOTE = {0: 'C', 1: 'C#', 2: 'D', 3: 'Eb', 4: 'E', 5: 'F', 6: 'F#', 7: 'G',
 
 def midinote_to_pc_octave(note):
     pc = note % 12
-    octave = note // 12 + 1
+    octave = note // 12 - 1
     notename = PC_TO_NOTE[pc]
     return '%s%d' % (notename, octave)
 

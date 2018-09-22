@@ -36,6 +36,7 @@ def tokenize_data(data_folder='../Bach-Two_Part_Inventions_MIDI_Transposed/txt_t
     # find max sequence length
     lens = []
     for file in glob.glob(os.path.join(data_folder, '*.txt')):
+        print(file)
         with open(file) as f:
             content = f.read().strip().split(' ')
             lens.append(len(content))
@@ -43,6 +44,7 @@ def tokenize_data(data_folder='../Bach-Two_Part_Inventions_MIDI_Transposed/txt_t
     print('max length', max_length)  # Was 250
 
     for file in glob.glob(os.path.join(data_folder, '*.txt')):
+        print(file)
         filename = os.path.basename(file)
         if filename.split("_")[3] == "0":
             add_example_to_list(file, input_texts, max_length)
