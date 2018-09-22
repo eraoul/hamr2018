@@ -11,9 +11,9 @@ And we want to keep it as simple as possible.
 ## The idea
 Since we see the music as question and answer, we take an approach that works also in language processing.
 We feed the entire question as input, note by note, and we generate the entire answer as output, regardless of the fact that in music the answer is typically played at the same time as the question.
-This approximation is not dramatic since a composer, when he or she writes the music, has knowledge of what is going to happen after.
+This approximation is not inappropriate since a composer, when he or she writes the music, has knowledge of what is going to happen after.
 
-This kind of approach is best applied with recurrent neural networks (RNN) and particularly a sequence to sequence approach.
+This kind of problem is best solved with recurrent neural networks (RNN) and particularly a sequence to sequence approach.
 See for example the following picture, taken from `https://github.com/farizrahman4u/seq2seq`:
 
 ![picture](./seq2seq.png)
@@ -21,7 +21,9 @@ See for example the following picture, taken from `https://github.com/farizrahma
 Here, seq2seq is used with plain English text.
 In our case we will substitute words with musical notes but this doesn't change the structure of the architecture nor the training of the network in any way.
 
-The model can be expanded through the use of MEMORY NETWORKS. TODO.
+The model can be expanded through the use of Neural Turing Machine, which is a form of a memory network (network, that has access to RAM). Neural Turing Machines function much the same way as ordinary
+Turing Machines, where a controller decides what to read from the memory and where to move its head. The difference is that a controller is a differentiable function (a neural network). We use an LSTM
+with the same architecture as the sequence-to-sequence memoryless model as a controller for our NTM. 
 
 ## The training data
 We take Bach's two-part inventions as a database for several reasons: 
