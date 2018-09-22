@@ -42,7 +42,7 @@ def seq2seq_from_models(encoder_model1, encoder_model2, decoder_model, input_seq
         states_value1 = [h1, c1]
         states_value2 = [h2, c2]
 
-        if sampled == 126:
+        if sampled == PADDING_TOKEN:
             break
 
     return np.array(output_sequence)

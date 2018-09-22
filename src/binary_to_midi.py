@@ -1,18 +1,14 @@
 """Convert form our numpy format (neural net output) to a midi file."""
 
 from collections import namedtuple
-import glob, os
-from itertools import chain
-import json
+import os
 import numpy as np
 import pickle
 
-from music21 import converter, instrument, note, chord, stream
+from music21 import note, stream
 from music21.midi.translate import streamToMidiFile
 
-TXT_TOKENIZED = '../Bach-Two_Part_Inventions_MIDI_Transposed/txt_tokenized'
-CHUNK_SIZE = 4  # MEASURES
-PADDING_TOKEN = 126
+from config import TXT_TOKENIZED, PADDING_TOKEN
 
 
 def read_pickle(filename):

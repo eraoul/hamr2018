@@ -62,9 +62,9 @@ early_stopping_callback = EarlyStopping(monitor='val_loss', min_delta=0, patienc
 
 # Run training
 logger.info("start the training")
-model.fit_generator(training_generator, steps_per_epoch=NUM_STEPS_PER_EPOCH / 50,
+model.fit_generator(training_generator, steps_per_epoch=NUM_STEPS_PER_EPOCH,
                     validation_data=validation_generator,
-                    validation_steps=NUM_TEST_STEPS_PER_EPOCH / 50,
+                    validation_steps=NUM_TEST_STEPS_PER_EPOCH,
                     verbose=1,
                     workers=1,
                     use_multiprocessing=False,

@@ -1,6 +1,6 @@
 import numpy as np
 
-from config import TRAIN_FOLDER, TEST_FOLDER, VEC_LENGTH
+from config import TRAIN_FOLDER, TEST_FOLDER, VEC_LENGTH, START_TOKEN
 from tokenize_data import tokenize_data
 
 
@@ -26,5 +26,5 @@ def create_start_token():
     :return:
     """
     start_token = np.zeros((1, VEC_LENGTH))
-    start_token[0, -1] = 1
+    start_token[0, START_TOKEN] = 1
     return start_token
