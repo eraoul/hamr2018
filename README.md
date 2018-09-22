@@ -15,7 +15,7 @@ See for example the following picture, taken from `https://github.com/farizrahma
 
 ![picture](./seq2seq.png)
 
-Here, seq2seq is used with plain English text. We parse Bach's two-part inventions MIDI files and convert them into tokens (each token being a pair MIDI value/duration).
+For the seq2seq we parse Bach's two-part inventions MIDI files for each part and convert them into tokens (each token being a pair MIDI value/duration).
 
 The model can be expanded through the use of Neural Turing Machine, which is a form of a memory network (network, that has access to RAM). Neural Turing Machines function much the same way as ordinary
 Turing Machines, where a controller decides what to read from the memory and where to move its head. The difference is that a controller is a differentiable function (a neural network). We use an LSTM
@@ -32,8 +32,7 @@ Here is an excerpt of a couple of measures from the first invention.
 
 ![picture](./data_example.png)
 
-With the idea of making it as simple as possible, we transposed all the songs to the key of C major or A minor.
-In this way the network doesn't have to learn complex tonal structures that would most probably need much more data.
+In order to represent tonal qualities and hierarchical music structures we firstly transposed all the songs to the key of C major or A minor, accordingly.
 
 ## The results
 TODO
