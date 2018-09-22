@@ -7,7 +7,7 @@ We would like to come up with a model that is able to understand such a relation
 
 
 ## The idea
-Motivated by a natural language processing, we arbitrarily consider one of the parts as the question and the other as the answer. Moreover, we also arbitrarily segment each of these into four-bar chunks. These are gross simplifactions, however, while we are aware that this representations misses out much contextual and musical value, we we up against time (this model been develope during HAMR2018). Furthermore, we consider question and answer as asynchronous whereas, in fact, in the music pieces (the two-part inventions) these are instead synchronous and difficult to unbind.
+Motivated by a natural language processing approach, we arbitrarily consider one of the parts as the question and the other as the answer. Moreover, we also arbitrarily segment each of these into four-bar chunks. These are gross simplifactions, however, while we are aware that this representations misses out much contextual and musical value, we we up against time (this model been develope during HAMR2018). Furthermore, we consider question and answer as asynchronous whereas, in fact, in the music pieces (the two-part inventions) these are instead synchronous and difficult to unbind.
 Nevertheless, we feel that this approximation is not entirely inappropriate since a composer has perfect information with respect to the composed material (since he/she is carefully writing it!)
 
 This kind of problem is best solved with recurrent neural networks (RNN) and particularly a sequence to sequence approach.
