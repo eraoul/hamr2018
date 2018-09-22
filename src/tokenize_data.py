@@ -8,6 +8,7 @@ os.environ["KERAS_BACKEND"] = "tensorflow"
 
 PADDING_TOKEN = 126  # start token is 127; avoid conflict.
 
+
 def pad_left(ex, pad_to_size):
     """ex is an example list of ints. Pad left to the given length."""
     pad_len = pad_to_size - len(ex)
@@ -39,8 +40,9 @@ def tokenize_data(data_folder='../Bach-Two_Part_Inventions_MIDI_Transposed/txt_t
         with open(file) as f:
             content = f.read().strip().split(' ')
             lens.append(len(content))
-    max_length = max(lens)
-    print('max length', max_length)  # Was 250
+    # max_length = max(lens)
+    max_length = 250
+    print('max length', max_length)
 
     for file in glob.glob(os.path.join(data_folder, '*.txt')):
         filename = os.path.basename(file)
