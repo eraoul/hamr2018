@@ -10,7 +10,7 @@ output_folder = os.path.join('..', 'data')
 training_folder = os.path.join(output_folder, 'training_set')
 validation_folder = os.path.join(output_folder, 'validation_set')
 
-
+np.random.seed(18)
 for t in tokens:
     if t[-3:] == 'pkl':
         continue

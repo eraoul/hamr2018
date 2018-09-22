@@ -6,8 +6,6 @@ from keras.utils import to_categorical
 
 os.environ["KERAS_BACKEND"] = "tensorflow"
 
-data_path = '../Bach-Two_Part_Inventions_MIDI_Transposed/txt_tokenized'
-
 PADDING_TOKEN = 126  # start token is 127; avoid conflict.
 
 def pad_left(ex, pad_to_size):
@@ -30,7 +28,7 @@ def add_example_to_list(filename, example_list, pad_to_size):
     example_list.append(example_padded)
 
 
-def tokenize_data():
+def tokenize_data(data_folder='../Bach-Two_Part_Inventions_MIDI_Transposed/txt_tokenized'):
     # Vectorize the data. Returns a tuple of inputs, outputs.
     input_texts = []
     target_texts = []

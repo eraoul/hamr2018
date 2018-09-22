@@ -1,9 +1,11 @@
 # Modelling Two-Part Polyphony @ hamr2018
 
-Team: Eric Nichols, Anna Aljanaki, Stefano Kalonaris, Ginaluca Micchi, Sebastian (?)
+Team: Eric Nichols, Anna Aljanaki, Stefano Kalonaris, Gianluca Micchi, Sebastian Stober
 
 Contrapuntal music can be seen as a dialogue between two or more voices.
 In the simple case of two-voice counterpoint (but also in countless other musical expressions, e.g. Afro-American music, West-African music, etc.), one can sometimes assimilate the musical interaction of the parts to the so-called 'antiphony' (sometimes referred to as 'call and reponse'): one voice asks a question and a second voice answers.
+
+![picture](./question-answer-example.png)
 
 We would like to come up with a model that is able to understand such a relation from some training data and, when given a musical question as an input, to generate an appropriate answer.
 
@@ -24,11 +26,10 @@ Turing Machines, where a controller decides what to read from the memory and whe
 with the same architecture as the sequence-to-sequence memoryless model as a controller for our NTM. 
 
 ## The training data
-We take Bach's two-part inventions as a database for several reasons: 
-first of all, it makes a homogeneous body of work who offers some variance while keeping well-defined internal laws;
-then, the two-part inventions are very well-known and regarded as a textbook example of contrapuntal music;
-they are very simple and could provide an excellent training set for a small model;
-and finally, they were already available to us in MIDI format.
+We take Bach's two-part inventions as a database because they are a homogeneous body of work which offers some variance while keeping well-defined internal laws.
+Furthermore, the two-part inventions are very well-known and regarded as a textbook example of contrapuntal music.
+They are relatively simple and could provide an excellent training set for a small model;
+
 
 Here is an excerpt of a couple of measures from the first invention.
 
@@ -38,3 +39,7 @@ In order to represent tonal qualities and hierarchical music structures we first
 
 ## The results
 TODO
+
+## Future Work
+Since the chunking was made arbitrarily every four measures, it's likely that the learnt representations and the generated responses are of limited musical value. It would be advisable to use a domain-expert to manually segment the two-part variations into more semantically valid chunks.
+We started doing this for the first two inventions (found in Bach-Two_Part_Inventions_MIDI_Phrases). These could be used as a validation set or they could be completed to include the whole corpus in order to train the model accordingly.
