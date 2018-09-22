@@ -1,15 +1,16 @@
 """Convert form our numpy format (neural net output) to a midi file."""
 
-import glob, os, numpy
-from music21 import converter, instrument, note, chord
-from itertools import chain
 from collections import namedtuple
-import numpy as np
+import glob, os
+from itertools import chain
 import json
+import numpy as np
 import pickle
 
-PATH = 'Bach-Two_Part_Inventions_MIDI_Transposed/txt'
-TXT_TOKENIZED = 'Bach-Two_Part_Inventions_MIDI_Transposed/txt_tokenized'
+from music21 import converter, instrument, note, chord, stream
+from music21.midi.translate import streamToMidiFile
+
+TXT_TOKENIZED = '../Bach-Two_Part_Inventions_MIDI_Transposed/txt_tokenized'
 CHUNK_SIZE = 4  # MEASURES
 
 
@@ -43,13 +44,50 @@ def binary_to_notelist(data):
 
     return notes
 
-def notelist_to_midi(notes):
-    pass
+
+PC_TO_NOTE = {0: 'C', 1: 'C#', 2: 'D', 3: 'Eb', 4: 'E', 5: 'F', 6: 'F#', 7: 'G', 8: 'G#', 9: 'A', 10: 'Bb', 11: 'B'}
+
+
+def midinote_to_pc_octave(note):
+    pc = note % 12
+    octave = note // 12 + 1
+    notename = PC_TO_NOTE[pc]
+    return '%s%d' % (notename, octave)
+
+
+def dur_string_to_quarterlength(dur_string):
+    dur = eval(dur_string)
+    return dur
+
+
+def notelist_to_midi(notes, filename='test.mid'):
+    s = stream.Stream() 
+
+    for n in notes:
+        midinote = note.Note(midinote_to_pc_octave(n.midi))
+        midinote.quarterLength = dur_string_to_quarterlength(n.dur_string)
+        s.append(midinote)
+
+    mf = streamToMidiFile(s)
+    mf.open(filename, 'wb')
+    mf.write()
+    mf.close()
+
+
+def convert_array_to_midi(data, output_filename):
+    """Use this function to convert a numpy 2D array (neural net output) to a MIDI file."""
+    notes = binary_to_notelist(data)
+    notelist_to_midi(notes, output_filename)
+
 
 
 if __name__ == '__main__':
-    notes = binary_to_notelist(np.array([[0,1,0,0,0,0,0,0], [0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, .9, 0], [0, 0, 0.1, 0.2, 0, 0, 0, 0]]))
+    notes = binary_to_notelist(np.array([[0,1,0,0,0,0,0,0], [0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 
+        0, .9, 0], [0, 0, 0.1, 0.2, 0, 0, 0, 0]]))
     print(notes)
+
+    notelist_to_midi(notes)
+
     print('DONE!')
 
 
