@@ -1,5 +1,5 @@
 from binary_to_midi import convert_array_to_midi
-from seq2seq.tokenize_data import tokenize_data
+from tokenize_data import tokenize_data
 import numpy as np
 
 input_cat, target_cat = tokenize_data()
@@ -10,7 +10,7 @@ print(input_cat.shape, target_cat.shape)
 
 #convert back to midi
 
-EX_NUM = 0
+EX_NUM = 7
 
 
 for row in target_cat[EX_NUM]:

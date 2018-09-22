@@ -16,8 +16,14 @@ def pad_left(ex, pad_to_size):
     padded.extend(ex)
     return padded
 
+def pad_right(ex, pad_to_size):
+    """ex is an example list of ints. Pad left to the given length."""
+    pad_len = pad_to_size - len(ex)
+    padding = [PADDING_TOKEN] * pad_len
+    ex.extend(padding)
+    return ex
 
-def add_example_to_list(filename, example_list, pad_to_size):
+def add_example_to_list(filename, example_list, pad_to_size, pad_on_right=False):
     example = []
     with open(filename, "r") as f:
         content = f.read().strip().split(' ')
@@ -25,7 +31,11 @@ def add_example_to_list(filename, example_list, pad_to_size):
             if not char == '':
                 example.append(int(char))
 
-    example_padded = pad_left(example, pad_to_size)
+    if pad_on_right:
+        example_padded = pad_right(example, pad_to_size)
+    else:
+        example_padded = pad_left(example, pad_to_size)
+
     example_list.append(example_padded)
 
 
@@ -49,9 +59,9 @@ def tokenize_data(data_folder='../Bach-Two_Part_Inventions_MIDI_Transposed/txt_t
         print(file)
         filename = os.path.basename(file)
         if filename.split("_")[3] == "0":
-            add_example_to_list(file, input_texts, max_length)
+            add_example_to_list(file, input_texts, max_length, pad_on_right=False)
         elif filename.split("_")[3] == "1":
-            add_example_to_list(file, target_texts, max_length)
+            add_example_to_list(file, target_texts, max_length, pad_on_right=True)
 
     input_examples = np.array(input_texts)
     target_examples = np.array(target_texts)

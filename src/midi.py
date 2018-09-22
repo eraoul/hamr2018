@@ -1,11 +1,11 @@
 import glob, os, numpy
-from music21 import converter, instrument, note, chord
+from music21 import converter, instrument, note, chord, meter, stream
 from itertools import chain
 
 
 
-PATH = 'Bach-Two_Part_Inventions_MIDI_Transposed'
-OUTPUT_PATH = 'Bach-Two_Part_Inventions_MIDI_Transposed/txt'
+PATH = '../Bach-Two_Part_Inventions_MIDI_Transposed'
+OUTPUT_PATH = '../Bach-Two_Part_Inventions_MIDI_Transposed/txt'
 CHUNK_SIZE = 4  # MEASURES
 
 def get_notes(file):
@@ -45,10 +45,17 @@ def convert_parts(file):
 
     chunks = [(i, i + CHUNK_SIZE) for i in range(0, max_measure, 4)]
 
+    time_sig = None
+    print (file)
     for i, part in enumerate(piece.parts):
         part_tuples=[]
+        time_sigs = part.recurse().getElementsByClass(meter.TimeSignature)
+        if len(time_sigs) > 0:
+            time_sig = time_sigs[0]
+        elif time_sig:
+            # insert time signature at start of stream.
+            part.insert(time_sig)
 
-        
         # Make measures and go through measures
         measures = part.makeMeasures()
         for start, end in chunks:
@@ -57,11 +64,7 @@ def convert_parts(file):
             for measure in measures[start: end]:
                 for event in measure:
                     if getattr(event,'isNote',None) and event.isNote:
-<<<<<<< HEAD
-                        string = " "+str(event.pitch.name)+str(event.pitch.octave)+" "+str(event.quarterLength)
-=======
-                        string = " " + str(event.pitch.midi) + " " + str(event.quarterLength) # string = " " + str(event.pitch.name) + str(event.pitch.octave) + " " + str(event.quarterLength)
->>>>>>> c586746188528170c3ae96053a30e145b3ffa226
+                        string = " " + str(event.pitch.midi) + " " + str(event.quarterLength)
                         part_tuples.append(string)
                     if getattr(event,'isRest',None) and event.isRest:
                         string = " " + '0' + " " + str(event.quarterLength)  # Replaced "Rest" with "0"
@@ -70,7 +73,6 @@ def convert_parts(file):
             part_tuples = ''.join(chain.from_iterable(part_tuples))
             with open(track_name + ".txt", "w") as f:
                 f.write(str(part_tuples))
-                f.close()
 
 
 def convert_midi_to_txt(directory):
@@ -78,7 +80,6 @@ def convert_midi_to_txt(directory):
         string = get_notes(file)
         with open(file+".txt", "w") as f:
             f.write(string)
-            f.close()
 
 def convert_midi_to_txt_chunks(directory):
     for file in glob.glob(os.path.join(PATH, '*.mid')):

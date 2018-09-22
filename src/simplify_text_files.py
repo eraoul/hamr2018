@@ -5,8 +5,8 @@ from itertools import chain
 import json
 import pickle
 
-PATH = 'Bach-Two_Part_Inventions_MIDI_Transposed/txt'
-OUTPUT_PATH = 'Bach-Two_Part_Inventions_MIDI_Transposed/txt_tokenized'
+PATH = '../Bach-Two_Part_Inventions_MIDI_Transposed/txt'
+OUTPUT_PATH = '../Bach-Two_Part_Inventions_MIDI_Transposed/txt_tokenized'
 CHUNK_SIZE = 4  # MEASURES
 
 
