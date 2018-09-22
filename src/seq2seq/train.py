@@ -11,7 +11,7 @@ from keras.models import Model
 from keras.optimizers import Adam
 from keras.utils.vis_utils import model_to_dot
 
-from tokenize_data import tokenize_data
+from src.tokenize_data import tokenize_data
 
 import logging
 logging.basicConfig(level=logging.INFO)
