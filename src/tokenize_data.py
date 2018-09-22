@@ -8,38 +8,53 @@ os.environ["KERAS_BACKEND"] = "tensorflow"
 
 data_path = '../Bach-Two_Part_Inventions_MIDI_Transposed/txt_tokenized'
 
+PADDING_TOKEN = 126  # start token is 127; avoid conflict.
+
+def pad_left(ex, pad_to_size):
+    """ex is an example list of ints. Pad left to the given length."""
+    pad_len = pad_to_size - len(ex)
+    padded = [PADDING_TOKEN] * pad_len
+    padded.extend(ex)
+    return padded
+
+
+def add_example_to_list(filename, example_list, pad_to_size):
+    example = []
+    with open(filename, "r") as f:
+        content = f.read().strip().split(' ')
+        for char in content:
+            if not char == '':
+                example.append(int(char))
+
+    example_padded = pad_left(example, pad_to_size)
+    example_list.append(example_padded)
+
+
 def tokenize_data():
     # Vectorize the data. Returns a tuple of inputs, outputs.
     input_texts = []
     target_texts = []
-    input_characters = set()
-    target_characters = set()
 
+    # find max sequence length
+    lens = []
+    for file in glob.glob(os.path.join(data_path, '*.txt')):
+        with open(file) as f:
+            content = f.read().strip().split(' ')
+            lens.append(len(content))
+    max_length = max(lens)
+    print('max length', max_length)  # Was 250
 
-    for file in glob.glob("./*.txt"):
-        if file.split("_")[3] == "0":
-            with open(file, "r") as f:
-                content = f.read().strip().split(' ')
-                for char in content:
-                    #print(char)
-                    if not char == '':
-                        input_texts.append(char)
-                        if char not in input_characters:
-                            input_characters.add(char)
-        elif file.split("_")[3] == "1":
-            with open(file, "r") as f:
-                content = f.read().strip().split(' ')
-                for char in content:
-                    if not char == '':
-                        target_texts.append(char)
-                        if char not in target_characters:
-                            target_characters.add(char)
+    for file in glob.glob(os.path.join(data_path, '*.txt')):
+        filename = os.path.basename(file)
+        if filename.split("_")[3] == "0":
+            add_example_to_list(file, input_texts, max_length)
+        elif filename.split("_")[3] == "1":
+            add_example_to_list(file, target_texts, max_length)
 
-    input_texts = np.array([int(e) for e in input_texts])
-    target_texts = np.array([int(e) for e in target_texts])
+    input_examples = np.array(input_texts)
+    target_examples = np.array(target_texts)
 
+    input_arrays = np.array([to_categorical(ex, num_classes=128) for ex in input_examples])
+    target_arrays = np.array([to_categorical(ex, num_classes=128) for ex in target_examples])
 
-    input_cat = to_categorical(input_texts, num_classes=128)
-    target_cat = to_categorical(target_texts, num_classes=128)
-
-    return input_cat, target_cat
+    return input_arrays, target_arrays
