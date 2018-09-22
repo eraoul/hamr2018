@@ -1,10 +1,9 @@
 # Music generation @ hamr2018
 
 Contrapuntal music can be seen as a dialogue between two or more voices.
-In the simple case of two-voice counterpoint, there is one voice that is asking a question and a second voice answering.
-This creates an intimate relation between the two voices that can be expressed in mathematical terms.
+In the simple case of two-voice counterpoint (but also in countless other musical expressions, e.g. Afro-American music, West-African music, etc.), one can sometimes assimilate the musical interaction of the parts to the so-called 'antiphony' (sometimes referred to as 'call and reponse'): one voice asks a question and a second voice answers.
 
-We want to create a model that is able to understand such a relation from some training data and, when given a musical question as an input, to generate an appropriate answer.
+We would like to come up with a model that is able to understand such a relation from some training data and, when given a musical question as an input, to generate an appropriate answer.
 
 And we want to keep it as simple as possible.
 
