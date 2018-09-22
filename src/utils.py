@@ -7,10 +7,13 @@ from tokenize_data import tokenize_data
 def example_generator(train=True):
     folder = TRAIN_FOLDER if train else TEST_FOLDER
     encoder_input, decoder_output = tokenize_data(folder)
+
     start_token = create_start_token()
     while True:
         for ei, do in zip(encoder_input, decoder_output):
             # the decoder input needs a start token as the first element and removes the last note from the end
+            idx = np.where(np.argmax(do, axis=1) == 126)[0][0]
+            do = do[:idx, :]
             di = np.concatenate((start_token, do[:-1, :]), axis=0)
             yield ([np.expand_dims(ei, 0), np.expand_dims(di, 0)], np.expand_dims(do, 0))
 

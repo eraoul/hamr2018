@@ -9,7 +9,7 @@ NUM_DURATION_CLASSES = 24
 VEC_LENGTH = max(NUM_MIDI_CLASSES, NUM_DURATION_CLASSES)
 
 TIMESTEPS = 250
-NUM_LSTM_NODES = 1028  # Num of intermediate LSTM nodes
+NUM_LSTM_NODES = 1024  # Num of intermediate LSTM nodes
 
 BATCH_SIZE = 1  # DON'T CHANGE IT SO FAR!
 NUM_EPOCHS = 100
@@ -20,7 +20,7 @@ DROPOUT = 0.3
 TRAIN_FOLDER = os.path.join('..', 'data', 'training_set')
 TEST_FOLDER = os.path.join('..', 'data', 'validation_set')
 OUTPUT_FOLDER = os.path.join('..', 'generated_sequences')
-MODEL_PATH = 's2s.h5'
+MODEL_PATH = os.path.join('..', 's2s.h5')
 
 NUM_TRAINING_EXAMPLES = len(os.listdir(TRAIN_FOLDER))
 NUM_TEST_EXAMPLES = len(os.listdir(TEST_FOLDER))

@@ -31,13 +31,10 @@ def seq2seq_from_models(encoder_model1, encoder_model2, decoder_model, input_seq
     for step in range(TIMESTEPS):
         z = decoder_model.predict([np.expand_dims(target_seq, 0)] + states_value1 + states_value2)
         out_vec, h1, c1, h2, c2 = z
-
-        sampled = np.argmax(out_vec[0, 0, :])
-
-        # print(sampled_command, sampled_midi, sampled_dur)
-        output_sequence.append(sampled)
+        output_sequence.append(out_vec[0, 0, :])
 
         # Update the target sequence (of length 1).
+        sampled = np.argmax(out_vec[0, 0, :])
         target_seq = np.zeros((1, VEC_LENGTH))
         target_seq[0, sampled] = 1
 
@@ -45,7 +42,10 @@ def seq2seq_from_models(encoder_model1, encoder_model2, decoder_model, input_seq
         states_value1 = [h1, c1]
         states_value2 = [h2, c2]
 
-    return output_sequence
+        if sampled == 126:
+            break
+
+    return np.array(output_sequence)
 
 
 def load_model(model_path):
@@ -112,11 +112,13 @@ if __name__ == '__main__':
         if i % 10 == 0:
             logger.info("Predicted {} sequences so far".format(i))
 
-        x, _ = next(validation_generator)
+        x, output_original = next(validation_generator)
         input_seq = x[0]
-        # Predict.
-        output_seq = seq2seq(input_seq)
 
+        # Predict
+        output_seq = seq2seq(input_seq)
+        print(output_seq)
         # Write to disk.
-        convert_array_to_midi(input_seq, os.path.join(OUTPUT_FOLDER, '{}_input.midi'.format(i)))
-        convert_array_to_midi(output_seq, os.path.join(OUTPUT_FOLDER, '{}_output.midi'.format(i)))
+        convert_array_to_midi(input_seq[0], os.path.join(OUTPUT_FOLDER, '{}_input.mid'.format(i)))
+        convert_array_to_midi(output_seq, os.path.join(OUTPUT_FOLDER, '{}_output.mid'.format(i)))
+        convert_array_to_midi(output_original[0], os.path.join(OUTPUT_FOLDER, '{}_orig_cont.mid'.format(i)))
