@@ -3,7 +3,7 @@
 Team: Eric Nichols, Anna Aljanaki, Stefano Kalonaris, Gianluca Micchi, Sebastian Stober
 
 Contrapuntal music can be seen as a dialogue between two or more voices.
-In the simple case of two-voice counterpoint (but also in countless other musical expressions, e.g. Afro-American music, West-African music, etc.), one can sometimes assimilate the musical interaction of the parts to the so-called 'antiphony' (sometimes referred to as 'call and reponse'): one voice asks a question and a second voice answers.
+In the simple case of two-voice counterpoint (but also in countless other musical expressions, e.g. Afro-American music, West-African music, etc.), one can sometimes assimilate the musical interaction of the parts to the so-called 'antiphony' (also referred to as 'call and reponse'): one voice asks a question and a second voice answers.
 
 Here is an excerpt of a couple of measures from the first invention:
 
