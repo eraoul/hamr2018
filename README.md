@@ -4,6 +4,7 @@ Team: Eric Nichols, Anna Aljanaki, Stefano Kalonaris, Ginaluca Micchi, Sebastian
 
 Contrapuntal music can be seen as a dialogue between two or more voices.
 In the simple case of two-voice counterpoint (but also in countless other musical expressions, e.g. Afro-American music, West-African music, etc.), one can sometimes assimilate the musical interaction of the parts to the so-called 'antiphony' (sometimes referred to as 'call and reponse'): one voice asks a question and a second voice answers.
+![picture](./question-answer-example.png)
 
 We would like to come up with a model that is able to understand such a relation from some training data and, when given a musical question as an input, to generate an appropriate answer.
 
