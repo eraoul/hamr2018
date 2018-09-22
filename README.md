@@ -5,6 +5,12 @@ Team: Eric Nichols, Anna Aljanaki, Stefano Kalonaris, Gianluca Micchi, Sebastian
 Contrapuntal music can be seen as a dialogue between two or more voices.
 In the simple case of two-voice counterpoint (but also in countless other musical expressions, e.g. Afro-American music, West-African music, etc.), one can sometimes assimilate the musical interaction of the parts to the so-called 'antiphony' (sometimes referred to as 'call and reponse'): one voice asks a question and a second voice answers.
 
+Here is an excerpt of a couple of measures from the first invention:
+
+![picture](./data_example.png)
+
+And here is how one could interpret it as a question\&answer:
+
 ![picture](./question-answer-example.png)
 
 We would like to come up with a model that is able to understand such a relation from some training data and, when given a musical question as an input, to generate an appropriate answer.
@@ -29,11 +35,6 @@ with the same architecture as the sequence-to-sequence memoryless model as a con
 We take Bach's two-part inventions as a database because they are a homogeneous body of work which offers some variance while keeping well-defined internal laws.
 Furthermore, the two-part inventions are very well-known and regarded as a textbook example of contrapuntal music.
 They are relatively simple and could provide an excellent training set for a small model;
-
-
-Here is an excerpt of a couple of measures from the first invention.
-
-![picture](./data_example.png)
 
 In order to represent tonal qualities and hierarchical music structures we firstly transposed all the songs to the key of C major or A minor, accordingly.
 
