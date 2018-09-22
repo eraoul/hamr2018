@@ -68,7 +68,12 @@ def notelist_to_midi(notes, filename='test.mid'):
     s = stream.Stream()
 
     for n in notes:
-        midinote = note.Note(midinote_to_pc_octave(n.midi))
+        if n.midi == 0:
+            midinote = note.Rest()
+            print('REST!!')
+        else:
+            print('NOTE: midi=', n.midi)
+            midinote = note.Note(midinote_to_pc_octave(n.midi))
         midinote.quarterLength = dur_string_to_quarterlength(n.dur_string)
         s.append(midinote)
 
