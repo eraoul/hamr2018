@@ -6,7 +6,7 @@ from keras.utils import to_categorical
 
 os.environ["KERAS_BACKEND"] = "tensorflow"
 
-data_path = 'Bach-Two_Part_Inventions_MIDI_Transposed/txt_tokenized'
+data_path = '../Bach-Two_Part_Inventions_MIDI_Transposed/txt_tokenized'
 
 # Vectorize the data.
 input_texts = []
