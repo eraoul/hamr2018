@@ -5,12 +5,10 @@ In the simple case of two-voice counterpoint (but also in countless other musica
 
 We would like to come up with a model that is able to understand such a relation from some training data and, when given a musical question as an input, to generate an appropriate answer.
 
-And we want to keep it as simple as possible.
 
 ## The idea
-Since we see the music as question and answer, we take an approach that works also in language processing.
-We feed the entire question as input, note by note, and we generate the entire answer as output, regardless of the fact that in music the answer is typically played at the same time as the question.
-This approximation is not inappropriate since a composer, when he or she writes the music, has knowledge of what is going to happen after.
+Motivated by a natural language processing, we arbitrarily consider one of the parts as the question and the other as the answer. Moreover, we also arbitrarily segment each of these into four-bar chunks. These are gross simplifactions, however, while we are aware that this representations misses out much contextual and musical value, we we up against time (this model been develope during HAMR2018). Furthermore, we consider question and answer as asynchronous whereas, in fact, in the music pieces (the two-part inventions) these are instead synchronous and difficult to unbind.
+Nevertheless, we feel that this approximation is not entirely inappropriate since a composer has perfect information with respect to the composed material (since he/she is carefully writing it!)
 
 This kind of problem is best solved with recurrent neural networks (RNN) and particularly a sequence to sequence approach.
 See for example the following picture, taken from `https://github.com/farizrahman4u/seq2seq`:
