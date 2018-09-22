@@ -15,8 +15,7 @@ See for example the following picture, taken from `https://github.com/farizrahma
 
 ![picture](./seq2seq.png)
 
-Here, seq2seq is used with plain English text.
-In our case we will substitute words with musical notes but this doesn't change the structure of the architecture nor the training of the network in any way.
+Here, seq2seq is used with plain English text. We parse Bach's two-part inventions MIDI files and convert them into tokens (each token being a pair MIDI value/duration).
 
 The model can be expanded through the use of Neural Turing Machine, which is a form of a memory network (network, that has access to RAM). Neural Turing Machines function much the same way as ordinary
 Turing Machines, where a controller decides what to read from the memory and where to move its head. The difference is that a controller is a differentiable function (a neural network). We use an LSTM
