@@ -9,7 +9,7 @@ Here is an excerpt of a couple of measures from the first invention:
 
 ![picture](./data_example.png)
 
-And here is how one could interpret it as a question\&answer:
+And here is how one could interpret it as a question \& answer:
 
 ![picture](./question-answer-example.png)
 
