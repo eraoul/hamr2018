@@ -1,8 +1,9 @@
 from binary_to_midi import convert_array_to_midi
 from tokenize_data import tokenize_data
 import numpy as np
+from config import *
 
-input_cat, target_cat = tokenize_data()
+input_cat, target_cat = tokenize_data(TXT_TOKENIZED, TIMESTEPS)
 
 print(input_cat.shape, target_cat.shape)
 
