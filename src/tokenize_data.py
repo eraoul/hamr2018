@@ -6,7 +6,7 @@ import tensorflow as tf
 from keras.utils import to_categorical
 
 from config import PADDING_TOKEN, TIMESTEPS, TRAIN_TFRECORDS, TEST_TFRECORDS, TRAIN_FOLDER, TEST_FOLDER, VEC_LENGTH, \
-    START_TOKEN
+    START_TOKEN, NUM_MIDI_CLASSES, NUM_DURATION_CLASSES
 
 
 def create_start_token():
@@ -18,73 +18,71 @@ def create_start_token():
     """
     start_token = np.zeros((1, VEC_LENGTH), dtype=np.float32)
     start_token[:, START_TOKEN] = 1
+    start_token[:, NUM_MIDI_CLASSES] = 1
     return start_token
 
 
-def pad_left(ex, pad_to_size):
+def pad_left(ex, pad_to_size, pad_value=PADDING_TOKEN):
     """ex is an example list of ints. Pad left to the given length."""
     pad_len = pad_to_size - len(ex)
-    padded = [PADDING_TOKEN] * pad_len
+    padded = [pad_value] * pad_len
     padded.extend(ex)
     return padded
 
 
-def pad_right(ex, pad_to_size):
+def pad_right(ex, pad_to_size, pad_value=PADDING_TOKEN):
     """ex is an example list of ints. Pad right to the given length."""
     pad_len = pad_to_size - len(ex)
-    padding = [PADDING_TOKEN] * pad_len
+    padding = [pad_value] * pad_len
     ex.extend(padding)
     return ex
 
 
-def add_example_to_list(filename, example_list, pad_to_size, pad_on_right=False):
-    example = []
+def add_example_to_lists(filename, pitch_list, duration_list, pad_to_size, pad_on_right=False):
+    pitches, durations = [], []
     with open(filename, "r") as f:
         content = f.read().strip().split(' ')
-        for char in content:
+        for n, char in enumerate(content):
             if char != '':
-                example.append(int(char))
+                if n % 2 == 0:
+                    pitches.append(int(char))
+                else:
+                    durations.append(int(char))
 
     if pad_on_right:
-        example_padded = pad_right(example, pad_to_size)
+        pitches_padded = pad_right(pitches, pad_to_size)
+        durations_padded = pad_right(durations, pad_to_size, 0)
     else:
-        example_padded = pad_left(example, pad_to_size)
+        pitches_padded = pad_left(pitches, pad_to_size)
+        durations_padded = pad_left(durations, pad_to_size, 0)
 
-    example_list.append(example_padded)
+    pitch_list.append(pitches_padded)
+    duration_list.append(durations_padded)
+    return
 
 
 def tokenize_data(data_folder, max_length):
     # Vectorize the data. Returns a tuple of inputs, outputs.
-    input_texts = []
-    target_texts = []
-
-    # # find max sequence length
-    # lens = []
-    # for file in glob.glob(os.path.join(data_folder, '*.txt')):
-    #     # print(file)
-    #     with open(file) as f:
-    #         content = f.read().strip().split(' ')
-    #         lens.append(len(content))
-    # # max_length = max(lens)
-    # max_length = 250
-    # # print('max length', max_length)
+    input_pitches, input_durations = [], []
+    target_pitches, target_durations = [], []
 
     for file in glob.glob(os.path.join(data_folder, '*.txt')):
         # print(file)
         filename = os.path.basename(file)
         if filename.split("_")[3] == "0":  # 0 and 1 encode right hand and left hand, respectively
-            add_example_to_list(file, input_texts, max_length, pad_on_right=False)
+            add_example_to_lists(file, input_pitches, input_durations, max_length, pad_on_right=False)
         elif filename.split("_")[3] == "1":  # if it's the left hand
-            add_example_to_list(file, target_texts, max_length, pad_on_right=True)
+            add_example_to_lists(file, target_pitches, target_durations, max_length, pad_on_right=True)
         else:
             raise ValueError("File name not in the supported format")
 
-    input_examples = np.array(input_texts)
-    target_examples = np.array(target_texts)
+    input_pitches = np.array([to_categorical(ex, num_classes=NUM_MIDI_CLASSES) for ex in input_pitches])
+    input_durations = np.array([to_categorical(ex, num_classes=NUM_DURATION_CLASSES) for ex in input_durations])
+    target_pitches = np.array([to_categorical(ex, num_classes=NUM_MIDI_CLASSES) for ex in target_pitches])
+    target_durations = np.array([to_categorical(ex, num_classes=NUM_DURATION_CLASSES) for ex in target_durations])
 
-    input_arrays = np.array([to_categorical(ex, num_classes=128) for ex in input_examples])
-    target_arrays = np.array([to_categorical(ex, num_classes=128) for ex in target_examples])
-
+    input_arrays = np.concatenate((input_pitches, input_durations), axis=-1)
+    target_arrays = np.concatenate((target_pitches, target_durations), axis=-1)
     return input_arrays, target_arrays
 
 

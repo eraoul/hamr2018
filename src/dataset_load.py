@@ -1,16 +1,17 @@
-from config import *
 import os
 
 import tensorflow as tf
 
+from config import TIMESTEPS, VEC_LENGTH
+
 
 def _parse_function(proto):
     f = {
-        "input": tf.FixedLenSequenceFeature([NUM_MIDI_CLASSES * TIMESTEPS], tf.float32, default_value=0.,
+        "input": tf.FixedLenSequenceFeature([VEC_LENGTH * TIMESTEPS], tf.float32, default_value=0.,
                                             allow_missing=True),
-        "decoder_input": tf.FixedLenSequenceFeature([NUM_MIDI_CLASSES * TIMESTEPS], tf.float32, default_value=0.,
-                                            allow_missing=True),
-        "target": tf.FixedLenSequenceFeature([NUM_MIDI_CLASSES * TIMESTEPS], tf.float32, default_value=0.,
+        "decoder_input": tf.FixedLenSequenceFeature([VEC_LENGTH * TIMESTEPS], tf.float32, default_value=0.,
+                                                    allow_missing=True),
+        "target": tf.FixedLenSequenceFeature([VEC_LENGTH * TIMESTEPS], tf.float32, default_value=0.,
                                              allow_missing=True)
     }
     parsed_features = tf.parse_single_example(proto, f)

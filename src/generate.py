@@ -44,5 +44,5 @@ if __name__ == '__main__':
     print('HAMR 2018: Modeling antiphony with seq2seq models')
     print('-------------------------------------------------')
 
-    model_folder = os.path.join('..', 'models', 's2s_2018-10-11_18-12-19')
+    model_folder = os.path.join('..', 'models', 's2s_2018-11-14_12-49-50')
     generate_sequence(model_folder)
