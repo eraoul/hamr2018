@@ -5,7 +5,7 @@ import os
 import tensorflow as tf
 from keras.utils import to_categorical
 
-from config import PADDING_TOKEN, TIMESTEPS, TRAIN_TFRECORDS, TEST_TFRECORDS, TRAIN_FOLDER, TEST_FOLDER, VEC_LENGTH, \
+from config import PADDING_TOKEN, TIMESTEPS, TRAIN_TFRECORDS, VALIDATION_TFRECORDS, TRAIN_FOLDER, VALIDATION_FOLDER, VEC_LENGTH, \
     START_TOKEN, NUM_MIDI_CLASSES, NUM_DURATION_CLASSES
 
 
@@ -109,4 +109,4 @@ def transform_into_tfrecord(data_folder, output_path):
 if __name__ == '__main__':
     # tokenize_data(TXT_TOKENIZED, TIMESTEPS)
     transform_into_tfrecord(TRAIN_FOLDER, TRAIN_TFRECORDS)
-    transform_into_tfrecord(TEST_FOLDER, TEST_TFRECORDS)
+    transform_into_tfrecord(VALIDATION_FOLDER, VALIDATION_TFRECORDS)

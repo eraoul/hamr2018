@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 def generate_sequence(model_folder):
-    itr = create_tfrecords_iterator(TEST_TFRECORDS, batch_size=1, shuffle_buffer=SHUFFLE_BUFFER)
+    itr = create_tfrecords_iterator(VALIDATION_TFRECORDS, batch_size=1, shuffle_buffer=SHUFFLE_BUFFER)
     x, _, y = itr.get_next()
     in_seq = tf.unstack(tf.reshape(x, [1, VEC_LENGTH, TIMESTEPS]), axis=-1)
     out_seq = tf.unstack(tf.reshape(y, [1, VEC_LENGTH, TIMESTEPS]), axis=-1)
@@ -44,5 +44,5 @@ if __name__ == '__main__':
     print('HAMR 2018: Modeling antiphony with seq2seq models')
     print('-------------------------------------------------')
 
-    model_folder = os.path.join('..', 'models', 's2s_2018-11-14_12-49-50')
+    model_folder = os.path.join('..', 'models', 's2s_2018-11-23_12-24-59')
     generate_sequence(model_folder)

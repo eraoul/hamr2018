@@ -32,6 +32,7 @@ def seq2seq_train(encoder_inputs, decoder_inputs):
     for o in decoder_outputs_2:
         l = tf.add(tf.matmul(o, W), b)
         logits.append(l)
+    logits = tf.transpose(tf.stack(logits), [1, 0, 2])
     return logits
 
 
