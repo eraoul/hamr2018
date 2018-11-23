@@ -23,9 +23,9 @@ vld_itr = create_tfrecords_iterator(VALIDATION_TFRECORDS, BATCH_SIZE, SHUFFLE_BU
 
 handle = tf.placeholder(tf.string, shape=[])
 x, di, y = tf.data.Iterator.from_string_handle(handle, trn_itr.output_types, trn_itr.output_shapes).get_next()
-encoder_inputs = tf.unstack(tf.reshape(x, [BATCH_SIZE, VEC_LENGTH, TIMESTEPS]), axis=-1)
-decoder_inputs = tf.unstack(tf.reshape(di, [BATCH_SIZE, VEC_LENGTH, TIMESTEPS]), axis=-1)
-targets = tf.transpose(tf.reshape(y, [BATCH_SIZE, VEC_LENGTH, TIMESTEPS]), [0, 2, 1])
+encoder_inputs = tf.unstack(tf.reshape(x, [BATCH_SIZE, TIMESTEPS, VEC_LENGTH]), axis=1)
+decoder_inputs = tf.unstack(tf.reshape(di, [BATCH_SIZE, TIMESTEPS, VEC_LENGTH]), axis=1)
+targets = tf.reshape(y, [BATCH_SIZE, TIMESTEPS, VEC_LENGTH])
 
 """ Model generation """
 logger.info("Creating the model")
